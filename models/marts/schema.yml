@@ -1,0 +1,59 @@
+version: 2
+
+models:
+  - name: mart_funnel_analysis
+    description: >
+      Multi-touch funnel metrics aggregated by cohort month, account size tier,
+      product series, and regional office. Includes stage conversion rates,
+      velocity, revenue, and leak point identification.
+    columns:
+      - name: engage_cohort_month
+        description: Month the deal entered the pipeline (YYYY-MM)
+        tests: [not_null]
+      - name: overall_win_rate_pct
+        description: Percentage of entered deals that closed as Won
+      - name: biggest_leak_stage
+        description: The funnel stage with the largest absolute deal drop-off
+
+  - name: mart_rep_performance
+    description: >
+      Per-rep performance metrics with territory normalization.
+      Raw and territory-adjusted ranks allow fair comparison across regions.
+      Key metric: territory_adjusted_revenue separates rep skill from territory luck.
+    columns:
+      - name: sales_agent
+        tests: [not_null, unique]
+      - name: territory_quality_index
+        description: >
+          Ratio of rep's avg account revenue to region average.
+          >1 means rep works richer accounts than region average.
+      - name: territory_adjusted_revenue
+        description: Revenue adjusted for territory quality — the fairest cross-rep comparison
+      - name: global_rank_raw
+        description: Revenue rank before territory adjustment
+      - name: global_rank_normalized
+        description: Revenue rank after territory adjustment
+
+  - name: mart_deal_scoring
+    description: >
+      Open deals scored 0-100 across four dimensions: stage, recency,
+      account quality, historical win rate. Bucketed into Hot/Warm/Cold.
+    columns:
+      - name: opportunity_id
+        tests: [not_null, unique]
+      - name: deal_score
+        description: Weighted composite score (0-100)
+      - name: deal_tier
+        tests:
+          - accepted_values:
+              values: ['Hot', 'Warm', 'Cold']
+
+  - name: mart_cohort_analysis
+    description: >
+      Win rate, deal size, and revenue by cohort month × segment × product series × rep tenure.
+      Includes rolling 3-month win rate window for trend smoothing.
+    columns:
+      - name: engage_cohort_month
+        tests: [not_null]
+      - name: rolling_3m_win_rate_pct
+        description: 3-month rolling average win rate for the segment/product combination

@@ -1,0 +1,8 @@
+.user.yml
+target/
+dbt_packages/
+logs/
+*.duckdb
+profiles.yml
+exports/
+.DS_Store

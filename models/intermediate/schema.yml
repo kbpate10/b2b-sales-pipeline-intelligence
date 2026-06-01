@@ -1,0 +1,20 @@
+version: 2
+
+models:
+  - name: int_deals_enriched
+    description: >
+      Opportunities joined with all dimension tables (accounts, teams, products).
+      Adds derived fields: open_deal_age_days, is_stalled, cohort months.
+    columns:
+      - name: opportunity_id
+        tests: [not_null, unique]
+      - name: is_stalled
+        tests: [not_null]
+
+  - name: int_stage_transitions
+    description: >
+      Adds funnel stage passage flags and deal age buckets to enriched deals.
+      Used by mart_funnel_analysis and mart_deal_scoring.
+    columns:
+      - name: opportunity_id
+        tests: [not_null, unique]

@@ -1,0 +1,42 @@
+version: 2
+
+models:
+  - name: stg_opportunities
+    description: Cleaned opportunity records with derived flags and stage ordering
+    columns:
+      - name: opportunity_id
+        tests: [not_null, unique]
+      - name: deal_stage
+        tests:
+          - accepted_values:
+              arguments:
+                values: ['Prospecting', 'Engaging', 'Won', 'Lost']
+      - name: close_value
+        tests: [not_null]
+      - name: is_won
+        tests: [not_null]
+      - name: is_closed
+        tests: [not_null]
+
+  - name: stg_accounts
+    description: Cleaned accounts with size and revenue tier buckets
+    columns:
+      - name: account
+        tests: [not_null]
+      - name: account_size_tier
+        tests:
+          - accepted_values:
+              arguments:
+                values: ['SMB', 'Mid-Market', 'Enterprise']
+
+  - name: stg_sales_teams
+    description: Sales reps with manager and regional office
+    columns:
+      - name: sales_agent
+        tests: [not_null, unique]
+
+  - name: stg_products
+    description: Products with series and list price
+    columns:
+      - name: product
+        tests: [not_null, unique]

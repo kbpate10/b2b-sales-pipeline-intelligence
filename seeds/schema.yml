@@ -1,0 +1,43 @@
+version: 2
+
+seeds:
+  - name: sales_pipeline
+    description: Raw opportunity records from Maven Analytics CRM dataset
+    config:
+      column_types:
+        opportunity_id: varchar
+        sales_agent: varchar
+        product: varchar
+        account: varchar
+        deal_stage: varchar
+        engage_date: date
+        close_date: date
+        close_value: double
+
+  - name: accounts
+    description: Account/company dimension
+    config:
+      column_types:
+        account: varchar
+        sector: varchar
+        year_established: integer
+        revenue: double
+        employees: integer
+        office_location: varchar
+        subsidiary_of: varchar
+
+  - name: sales_teams
+    description: Sales rep and manager hierarchy
+    config:
+      column_types:
+        sales_agent: varchar
+        manager: varchar
+        regional_office: varchar
+
+  - name: products
+    description: Product catalog with list pricing
+    config:
+      column_types:
+        product: varchar
+        series: varchar
+        sales_price: double

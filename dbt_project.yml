@@ -1,0 +1,27 @@
+name: 'sales_pipeline_intelligence'
+version: '1.0.0'
+config-version: 2
+
+profile: 'sales_pipeline_intelligence'
+
+model-paths: ["models"]
+seed-paths: ["seeds"]
+test-paths: ["tests"]
+macro-paths: ["macros"]
+snapshot-paths: ["snapshots"]
+
+target-path: "target"
+clean-targets: ["target", "dbt_packages"]
+
+models:
+  sales_pipeline_intelligence:
+    staging:
+      +materialized: view
+    intermediate:
+      +materialized: view
+    marts:
+      +materialized: table
+
+seeds:
+  sales_pipeline_intelligence:
+    +schema: raw
