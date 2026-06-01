@@ -6,8 +6,6 @@
 
 ## Problem Statement
 
-Most sales analytics projects stop at basic reporting: total revenue, deals closed, quota attainment. These numbers tell you what happened, not why it happened or where the business is leaking money.
-
 B2B sales teams lose deals at predictable points in the pipeline, carry stale opportunities that will never close, and misattribute rep performance to individual skill when territory quality is the real driver. Without granular funnel analysis, ops teams make coaching decisions and headcount calls based on incomplete information.
 
 This project builds a full pipeline intelligence layer on top of raw CRM data, covering funnel conversion, rep performance normalization, deal scoring, and cohort analysis, using production-grade tooling that mirrors how modern data teams operate.
@@ -20,8 +18,7 @@ Revenue operations is one of the highest-leverage functions at a B2B company. De
 
 The specific analyses in this project, particularly territory-normalized rep performance and deal scoring, are the types of work that distinguish data teams that drive decisions from those that produce dashboards nobody acts on.
 
-The dataset used is a real CRM export from Maven Analytics covering 8,800 opportunity records across accounts, products, and sales teams. No synthetic data was generated.
-
+The dataset used is a real CRM export from Maven Analytics covering 8,800 opportunity records across accounts, products, and sales teams.
 ---
 
 ## Dataset
@@ -55,7 +52,7 @@ Raw CSV Files (Maven Analytics)
   Mart Layer          -- business-ready analytical tables
         |
         v
-  Tableau Public      -- interactive dashboard (in progress)
+  Tableau Public      -- interactive dashboard 
 ```
 
 The project uses **dbt Core** for transformation with **DuckDB** as the local analytical engine. The architecture mirrors production stacks at modern SaaS companies, with the only difference being the warehouse layer, which can be swapped to Snowflake or BigQuery by changing a single config file.
@@ -103,8 +100,6 @@ This model answers the question every sales leader actually cares about: where i
 ---
 
 ### 2. Rep Performance with Territory Normalization (`mart_rep_performance`)
-
-This is the analysis that most sales analytics projects skip.
 
 Raw revenue rank is misleading. A rep covering enterprise accounts in a high-revenue region will outperform an equally skilled rep working SMB accounts in a weaker territory, purely due to account mix. Ranking reps on revenue alone rewards geography, not skill.
 
